@@ -28,6 +28,7 @@ namespace Dania_Basis_programering_aflevering_Variabler___Datatyper
                 Name = GetResponds();
                 if (Name == "")
                 {
+                    //hvis intet er skrevet; gentages loopet.
                     SayLine("What?");
                     Wait(1000);
                     SayLine("You don't have a name?");
@@ -35,6 +36,7 @@ namespace Dania_Basis_programering_aflevering_Variabler___Datatyper
                     SayLine("That can't be right, try again.");
                     continue;
                 }
+                //hvis navnet er skrevet; bliver loopet brudt.
                 break;
             }
 
@@ -47,30 +49,37 @@ namespace Dania_Basis_programering_aflevering_Variabler___Datatyper
             SayLine("Let's give it a try!");
             StageBreak();
 
+            //spillet
             while (true)
             {
+                //et tilfældigt nummer findes.
                 int randomNumber = Random.Next(1,101);
                 SayLine("I have a number in mind, let's see if you can guess it.");
 
+                //et nummer gættes.
                 string guessedNumberString = GetResponds();
                 int guessedNumber;
 
                 try
                 {
+                    //checker om input er nummer.
                     guessedNumber = Convert.ToInt16(guessedNumberString);
                 }
                 catch
                 {
+                    //starter forfra hvis ikke
                     WrongGameInput();
                     continue;
                 }
 
                 if (guessedNumber <= 0 | guessedNumber > 100)
                 {
+                    //checker hvis nummeret er udenfor 1-100, og starter forfra hvis ikke.
                     WrongGameInput();
                     continue;
                 }
 
+                //giver responds baseret på forskellen
                 int difference = Math.Abs(guessedNumber - randomNumber);
                 if (difference == 0)
                     SayLine("WOW! You actually guessed it!");
@@ -90,10 +99,12 @@ namespace Dania_Basis_programering_aflevering_Variabler___Datatyper
                 string responds = GetResponds().ToLower();
                 if (responds == "y")
                 {
+                    //der startes forfra.
                     continue;
                 }
                 else if (responds == "n")
                 {
+                    //en cinematisk exit.
                     Say("That's fine, i hope you had fun.");
                     Wait(1000);
                     Say(".");
@@ -108,6 +119,7 @@ namespace Dania_Basis_programering_aflevering_Variabler___Datatyper
                 }
                 else
                 {
+                    //spørger igen hvis svar ikke er givet
                     Console.Clear();
                     goto TryAgain;
                 }
@@ -121,6 +133,7 @@ namespace Dania_Basis_programering_aflevering_Variabler___Datatyper
         }
         public static void Say(string text)
         {
+            //splitter lortet op i bogstaver og skriver dem én efter én, for en cool effect.
             int waitTime = 20;
             foreach (char letter in text)
             {
@@ -132,6 +145,7 @@ namespace Dania_Basis_programering_aflevering_Variabler___Datatyper
 
         public static void StageBreak()
         {
+            //venter på input før der fortsættes
             Console.WriteLine("[Press Enter]");
             Console.ReadKey();
             Console.Beep(100, 60);
@@ -139,6 +153,7 @@ namespace Dania_Basis_programering_aflevering_Variabler___Datatyper
         }
         public static string GetResponds()
         {
+            //Læser spillerens responds og clear consolen.
             Console.CursorVisible = true;
             string responds = Console.ReadLine();
             Console.CursorVisible = false;
@@ -150,6 +165,7 @@ namespace Dania_Basis_programering_aflevering_Variabler___Datatyper
 
         public static void WrongGameInput()
         {
+            //hvis du ikke giver et tal mellem 1 og 100.
             SayLine("That's not how you play, you're supposed to guess a number between 1 and 100.");
             Wait(500);
             SayLine("Let's try again.");
